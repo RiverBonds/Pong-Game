@@ -5,12 +5,12 @@
 #define H 75
 
 /*
-	@author: Alfredo Flores
-	@email: alfredojose20001@outlook.es
-
+Midterm 2: Pong Game
+Alexander Rodriguez, River Bonds, Braden Mcdonald
+COSC-1310
 */
 
-// initianilizing
+// initializing
 void loop(char map[V][H], int jini, int jfinal, int iaini, int iafinal, int px, int py);
 void edge(char map[V][H]);
 void player(char map[V][H], int jini, int jfinal);
@@ -25,12 +25,11 @@ void input(char map[V][H], int* jini, int* jfinal, int* iaini, int* iafinal, int
 void update(char map[V][H], int jini, int jfinal, int iaini, int iafinal, int py, int px);
 void gotoxy(int x, int y);
 
-int playerwin = 0; // ikr bad deal.
+int playerwin = 0;
 int iawin = 0;
 
 int main()
 {
-
 	char map[V][H];
 
 	// initialized map
@@ -57,14 +56,12 @@ int main()
 
 	if (playerwin == 1)
 	{
-
-		printf("Congrant's.\n");
+		printf("You Win!\n");
 	}
 
 	if (iawin == 1)
 	{
-
-		printf("Lose\n");
+		printf("You Lose\n");
 	}
 
 	return 0;
@@ -72,7 +69,6 @@ int main()
 
 void loop(char map[V][H], int jini, int jfinal, int iaini, int iafinal, int py, int px)
 {
-
 	edge(map);
 	player(map, jini, jfinal);
 	cpu(map, iaini, iafinal);
@@ -81,28 +77,22 @@ void loop(char map[V][H], int jini, int jfinal, int iaini, int iafinal, int py, 
 
 void edge(char map[V][H])
 {
-
 	int i, j;
 
 	for (i = 0; i < V; i++)
 	{
-
 		for (j = 0; j < H; j++)
 		{
-
 			if (i == 0 || i == V - 1)
 			{
-
 				map[i][j] = '-';
 			}
 			else if (j == 0 || j == H - 1)
 			{
-
 				map[i][j] = '|';
 			}
 			else
 			{
-
 				map[i][j] = ' ';
 			}
 		}
@@ -111,33 +101,26 @@ void edge(char map[V][H])
 
 void show(char map[V][H])
 {
-
 	int i, j;
 
 	for (i = 0; i < V; i++)
 	{
-
 		for (j = 0; j < H; j++)
 		{
-
 			printf("%c", map[i][j]);
 		}
-
 		printf("\n");
 	}
 }
 
 void player(char map[V][H], int jini, int jfinal)
 {
-
 	int i, j;
 
 	for (i = jini; i < jfinal; i++)
 	{
-
 		for (j = 2; j <= 3; j++)
 		{
-
 			map[i][j] = 'X';
 		}
 	}
@@ -145,15 +128,12 @@ void player(char map[V][H], int jini, int jfinal)
 
 void cpu(char map[V][H], int iaini, int iafinal)
 {
-
 	int i, j;
 
 	for (i = iaini; i < iafinal; i++)
 	{
-
 		for (j = H - 4; j <= H - 3; j++)
 		{
-
 			map[i][j] = 'X';
 		}
 	}
@@ -161,19 +141,16 @@ void cpu(char map[V][H], int iaini, int iafinal)
 
 void ball(char map[V][H], int py, int px)
 {
-
 	map[py][px] = 'O';
 }
 
 void gameloop(char map[V][H], int jini, int jfinal, int iaini, int iafinal, int px, int py, int modx, int mody, int modia)
 {
-
 	int gol;
 	gol = 0;
 
 	do
 	{
-
 		draw(map);
 		input(map, &jini, &jfinal, &iaini, &iafinal, &px, &py, &modx, &mody, &modia, &gol);
 		update(map, jini, jfinal, iaini, iafinal, px, py);
@@ -190,40 +167,33 @@ void draw(char map[V][H])
 
 void input(char map[V][H], int* jini, int* jfinal, int* iaini, int* iafinal, int* px, int* py, int* modx, int* mody, int* modia, int* gol)
 {
-
 	int i;
 	char key;
 	char key2;
 
 	if (*py == 1 || *py == V - 2)
-	{ // If touch, change direction of ball
-
+	{ // If it touches, reverses direction of the ball
 		*mody *= -1;
 	}
 
 	if (*px == 1)
-	{ // Verify GOL
-
+	{ 
 		iawin = 1;
 		*gol = 1;
 	}
 
 	if (*px == H - 2)
 	{
-
 		playerwin = 1;
 		*gol = 1;
 	}
 
 	if (*px == 4)
 	{
-
 		for (i = (*jini); i <= (*jfinal); i++)
 		{
-
 			if (i == (*py))
 			{
-
 				*modx *= -1;
 			}
 		}
@@ -231,13 +201,10 @@ void input(char map[V][H], int* jini, int* jfinal, int* iaini, int* iafinal, int
 
 	if (*px == H - 5)
 	{
-
 		for (i = (*iaini); i <= (*iafinal); i++)
 		{
-
 			if (i == (*py))
 			{
-
 				*modx *= -1;
 			}
 		}
@@ -246,14 +213,12 @@ void input(char map[V][H], int* jini, int* jfinal, int* iaini, int* iafinal, int
 	if (*iaini == 1 || *iafinal == V - 1) {
 
 		*modia *= -1;
-
 	}
 
 	// ball
 
 	if (*gol == 0)
 	{
-
 		*px += (*modx);
 		*py += (*mody);
 
@@ -266,15 +231,12 @@ void input(char map[V][H], int* jini, int* jfinal, int* iaini, int* iafinal, int
 
 		if (_kbhit() == 1)
 		{
-
 			key = _getch();
 
 			if (key == 'w')
 			{
-
 				if (*jini != 1)
 				{
-
 					*jini -= 1;
 					*jfinal -= 1;
 				}
@@ -282,10 +244,8 @@ void input(char map[V][H], int* jini, int* jfinal, int* iaini, int* iafinal, int
 
 			if (key == 's')
 			{
-
 				if (*jini != V - 5)
 				{
-
 					*jini += 1;
 					*jfinal += 1;
 				}
@@ -296,7 +256,6 @@ void input(char map[V][H], int* jini, int* jfinal, int* iaini, int* iafinal, int
 
 void update(char map[V][H], int jini, int jfinal, int iaini, int iafinal, int py, int px)
 {
-
 	edge(map);
 	player(map, jini, jfinal);
 	cpu(map, iaini, iafinal);
